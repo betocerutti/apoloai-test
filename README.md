@@ -4,7 +4,7 @@
 
 You will need Docker installed on your computer.
 
-1. Clone the project from [GitHub Repository](link to github).
+1. Clone the project from [https://github.com/betocerutti/apoloai-test.git](link to github).
 2. Change the directory to `apoloai-test`.
 
 ## Available Make Commands
