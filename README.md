@@ -34,7 +34,7 @@ After running `make run`, the services will be available at the following endpoi
 
 - **Swagger UI**: [http://localhost:8000/swagger](http://localhost:8000/swagger)
 
-Notes: There are initial scripts that load sample data into the product service using Django fixtures. You do not need to worry about this—it is included in the initial command when the containers are created.
+Notes: There are initial scripts that load sample data into the product service using Django fixtures. You do not need to worry about this, it is included in the initial command when the containers are created.
 
 ### Orders Service
 
