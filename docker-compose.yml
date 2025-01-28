@@ -1,0 +1,46 @@
+services:
+  product_service:
+    image: product_service
+    container_name: product_service_container
+    build:
+      context: ./product_service
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./product_service:/app
+    command: >
+      sh -c "pip install watchdog && 
+             watchmedo auto-restart --directory=./ --pattern=*.py --recursive -- python manage.py runserver 0.0.0.0:8000"
+    environment:
+      - DEBUG=True
+    networks:
+      store_network:
+        ipv4_address: 172.22.0.2
+
+  orders_service:
+    image: orders_service
+    container_name: orders_service_container
+    build:
+      context: ./orders_service
+      dockerfile: Dockerfile
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./orders_service:/app
+    command: >
+      sh -c "pip install watchdog && 
+             watchmedo auto-restart --directory=./ --pattern=*.py --recursive -- sh -c 'python init_db.py && uvicorn app.main:app --host 0.0.0.0 --port 8001 --reload'"
+    environment:
+      - DEBUG=True
+    networks:
+      store_network:
+        ipv4_address: 172.22.0.3
+
+networks:
+  store_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: "172.22.0.0/16"
+          gateway: "172.22.0.1"

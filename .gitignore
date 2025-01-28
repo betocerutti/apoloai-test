@@ -1,0 +1,58 @@
+# Python specific
+*.py[cod]
+__pycache__/
+*.so
+*.pyd
+*.dll
+*.pyc
+*.pyo
+*.log
+*.db
+
+# Virtual environment
+env/
+venv/
+ENV/
+.VENV/
+
+# Django specific
+*.sqlite3
+db.sqlite3
+/media/
+staticfiles/
+static/
+local_settings.py
+
+# FastAPI specific
+*.sqlite3
+db.sqlite3
+instance/
+.env
+
+# Node modules (if any frontend or dependencies)
+node_modules/
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Coverage reports
+htmlcov/
+.coverage
+.tox/
+.cache/
+.nox/
+coverage.xml
+*.cover
+
+# Testing and CI/CD
+.pytest_cache/
+tests/__pycache__/
+tests/.pytest_cache/
