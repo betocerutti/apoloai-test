@@ -32,11 +32,15 @@ After running `make run`, the services will be available at the following endpoi
 
 ### Product Service
 
+The Product service is a DjangoRestFramework application backed by a SQLite database.
+
 - **Swagger UI**: [http://localhost:8000/swagger](http://localhost:8000/swagger)
 
 Notes: There are initial scripts that load sample data into the product service using Django fixtures. You do not need to worry about this, it is included in the initial command when the containers are created.
 
 ### Orders Service
+
+The orders service is a FastAPI application backed by a SQLLite database. 
 
 - **Swagger UI**: [http://localhost:8001/docs](http://localhost:8001/docs)
 
