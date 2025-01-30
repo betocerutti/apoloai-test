@@ -19,4 +19,5 @@ class Order(BaseModel):
     created_at: datetime
 
     class Config:
-        from_attributes = True
+        # This will allow to create a Pydantic model from a SQLAlchemy model
+        from_attributes = True 
