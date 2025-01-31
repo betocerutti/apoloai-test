@@ -7,6 +7,7 @@ class ProductSerializer(serializers.ModelSerializer):
     Serializer for the Product model, contains all fields.
     Covers CRUD operations.
     """
+
     class Meta:
         model = Product
         fields = '__all__'

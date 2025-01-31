@@ -22,6 +22,7 @@ def validate_product_and_update_stock(product_id: int, quantity: int) -> float:
     if response.status_code == 404:
         raise HTTPException(status_code=404, detail=f"Product with id {product_id} not found")
 
+    # Check if there is enough stock
     product_data = response.json()
     if product_data["stock"] < quantity:
         raise HTTPException(
@@ -36,6 +37,7 @@ def validate_product_and_update_stock(product_id: int, quantity: int) -> float:
         json={"stock": new_stock},
     )
 
+    # Check if the stock was updated successfully
     if update_stock_response.status_code != 200:
         raise HTTPException(
             status_code=update_stock_response.status_code,
@@ -50,14 +52,19 @@ def calculate_total_price(order: schemas.OrderCreate) -> float:
     Calculate the total price of an order by validating products and summing their prices.
     """
     total_price = 0.0
+
+    # Validate each product and sum the prices
     for product_item in order.products:
         product_price = validate_product_and_update_stock(product_item.id, product_item.quantity)
         total_price += product_price * product_item.quantity
+
     return total_price
 
 def create_order_in_db(db: Session, products: List[dict], total_price: float) -> models.Order:
     """
-    Create an order in the database.
+    Create an order in the database, and return the created order.
+    The returned order object will be serialized via Pydantic 
+    thanks to the `from_attributes` configuration in the Order model.
     """
     db_order = models.Order(
         products=products,  # Store the list of products as JSON
