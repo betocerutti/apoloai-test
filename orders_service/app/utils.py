@@ -78,4 +78,14 @@ def create_order_in_db(db: Session, products: List[dict], total_price: float) ->
         return db_order
     except Exception as e:
         db.rollback()
+        # Rollback the stock updates in the products service
+        for product_item in products:
+            product_id = product_item["id"]
+            product_quantity = product_item["quantity"]
+            requests.patch(
+                f"{PRODUCTS_SERVICE_URL}/products/{product_id}/update-stock/",
+                json={"stock": product_quantity},
+            )
+            
+
         raise HTTPException(status_code=400, detail=str(e))
